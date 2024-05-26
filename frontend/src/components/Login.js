@@ -22,7 +22,7 @@ const Login = () => {
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       <header className="w-full bg-white shadow-md">
         <nav className="container mx-auto p-4 flex justify-between items-center">
-          <Link to="/recipes" className="btn btn-ghost rounded-lg hover:bg-gray-300 py-2 px-4 text-lg">Recipe</Link>
+          <Link to="/recipes" className="btn btn-ghost rounded-lg hover:bg-black-300 py-2 px-4 text-lg">Recipe</Link>
           <Link to="/dashboard" className="text-3xl font-bold text-orange-500">eatspire</Link>
           <Link to="/login" className="btn btn-ghost rounded-lg hover:bg-gray-300 py-2 px-4 text-lg">Login</Link>
         </nav>

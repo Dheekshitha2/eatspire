@@ -47,7 +47,7 @@ const Dashboard = () => {
       <header className="w-full bg-white shadow-md">
         <nav className="container mx-auto p-4 flex justify-between items-center">
           <Link to="/recipes" className="btn btn-ghost rounded-lg hover:bg-gray-300 py-2 px-4 text-lg">Recipe</Link>
-          <h1 className="text-3xl font-bold text-orange-500">eatspire</h1>
+          <Link to="/dashboard" className="text-3xl font-bold text-orange-500">eatspire</Link>
           <Link to="/login" className="btn btn-ghost rounded-lg hover:bg-gray-300 py-2 px-4 text-lg">Login</Link>
         </nav>
       </header>
@@ -57,7 +57,7 @@ const Dashboard = () => {
         
         <button 
           onClick={() => setIsModalOpen(true)} 
-          className="btn btn-primary rounded-2xl bg-orange-400 hover:bg-orange-600 mb-8 py-3 px-12 text-xl font-medium mt-2"
+          className="btn btn-primary rounded-2xl bg-orange-400 hover:bg-orange-600 mb-8 py-3 px-16 text-xl font-medium mt-2"
         >
           Add Ingredient
         </button>
@@ -72,24 +72,24 @@ const Dashboard = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Ingredient"
-                  className="input input-bordered w-full mb-6"
+                  className="input input-bordered w-full mb-6 text-center"
                   required
                 />
                 <input
                   type="date"
                   value={expiryDate}
                   onChange={(e) => setExpiryDate(e.target.value)}
-                  className="input input-bordered w-full mb-10"
+                  className="input input-bordered w-full mb-10 text-center"
                   required
                 />
-                <div className="flex space-x-4">
-                  <button type="submit" className="btn btn-primary rounded-lg bg-orange-400 hover:bg-orange-600 py-2 text-lg font-medium w-full">
+                <div className="flex justify-between space-x-4">
+                  <button type="submit" className="btn btn-primary rounded-lg bg-orange-400 hover:bg-orange-600 py-2 px-16 text-lg font-medium">
                     Save
                   </button>
                   <button 
                     type="button" 
                     onClick={() => setIsModalOpen(false)} 
-                    className="btn btn-secondary rounded-lg bg-gray-300 hover:bg-gray-400 py-2 text-lg font-medium w-full"
+                    className="btn btn-secondary rounded-lg bg-gray-300 hover:bg-gray-400 py-2 px-14 text-lg font-medium"
                   >
                     Cancel
                   </button>
