@@ -33,7 +33,7 @@ const Dashboard = () => {
       <header className="w-full bg-white shadow-md">
         <nav className="container mx-auto p-4 flex justify-between items-center text-black">
 
-          <Link to="/recipesuggestions" className="btn btn-ghost rounded-lg hover:bg-gray-300 py-2 px-4 text-lg">
+          <Link to="/recipes" className="btn btn-ghost rounded-lg hover:bg-gray-300 py-2 px-4 text-lg">
             Recipe
           </Link>
 
@@ -49,7 +49,7 @@ const Dashboard = () => {
       </header>
 
       <main className="flex-grow flex flex-col items-center mt-10 text-black">
-        <h2 className="text-5xl font-bold mb-6">Dashboard</h2>
+        <h2 className="text-5xl font-bold mb-8">Dashboard</h2>
 
         <button
           onClick={() => setIsModalOpen(true)}

@@ -29,14 +29,14 @@ const Login = () => {
       </header>
 
       <main className="flex-grow flex flex-col items-center mt-16">
-        <h2 className="text-4xl font-bold mb-8">Login</h2>
+        <h2 className="text-4xl font-bold mb-12">Login</h2>
         <form onSubmit={handleLogin} className="w-full max-w-md text-center">
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
-            className="input input-bordered w-3/4 mb-6 text-center"
+            className="input input-bordered w-3/4 mb-6 text-center bg-gray-200"
             required
           />
           <input
@@ -44,10 +44,10 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            className="input input-bordered w-3/4 mb-10 text-center"
+            className="input input-bordered w-3/4 mb-10 text-center bg-gray-200"
             required
           />
-          <button type="submit" className="btn btn-primary rounded-2xl bg-orange-400 hover:bg-orange-600 py-3 px-12 text-xl font-medium mt-2">
+          <button type="submit" className="btn btn-primary rounded-2xl bg-orange-300 hover:bg-orange-400 py-2 px-36 text-xl font-medium mt-2">
             Login
           </button>
         </form>

@@ -39,12 +39,14 @@ const AddIngredientForm = ({ onClose, onAdd }) => {
       <div className="bg-white p-12 rounded-2xl shadow-lg">
         <h3 className="text-3xl text-center font-bold mb-8 text-black">Add Ingredient</h3>
         <form onSubmit={handleAddIngredient} className="w-full max-w-md text-center">
+
+
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Ingredient"
-            className="input input-bordered w-full mb-6 text-center"
+            className="input input-bordered w-full mb-6 text-center bg-gray-200"
             required
           />
           <input
@@ -54,10 +56,11 @@ const AddIngredientForm = ({ onClose, onAdd }) => {
             onChange={(e) => setExpiryDate(e.target.value)}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            className="input input-bordered w-full mb-10 text-center"
-            style={{ color: !isFocused && !expiryDate ? 'gray' : 'black' }}
+            className="input input-bordered w-full mb-10 text-center bg-gray-200"
             required
           />
+
+
           {!isFocused && !expiryDate && (
             <span className="absolute top-2/4 left-2/4 transform -translate-x-2/4 -translate-y-2/4 pointer-events-none text-gray-500">
             </span>

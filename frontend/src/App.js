@@ -15,7 +15,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/ingredients" element={<IngredientManagement />} />
-          <Route path="/recipesuggestions" element={<RecipeSuggestions />} />
+          <Route path="/recipes" element={<RecipeSuggestions />} />
           <Route path="/" element={<Dashboard />} />
         </Routes>
       </div>
