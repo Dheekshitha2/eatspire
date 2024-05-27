@@ -53,7 +53,7 @@ const Dashboard = () => {
 
         <button
           onClick={() => setIsModalOpen(true)}
-          className="btn btn-primary rounded-2xl bg-gray-300 hover:bg-orange-400 mb-4 py-2 px-16 text-xl font-medium mt-1"
+          className="btn btn-primary rounded-2xl bg-gray-300 hover:bg-orange-400 mb-4 py-2 px-16 text-xl font-normal mt-1"
         >
           Add Ingredient
 
@@ -61,7 +61,7 @@ const Dashboard = () => {
 
         <Link
           to="/ingredients"
-          className="btn btn-primary rounded-2xl bg-gray-300 hover:bg-orange-400 mb-6 py-2 px-10 text-xl font-medium border-none"
+          className="btn btn-primary rounded-2xl bg-gray-300 hover:bg-orange-400 mb-6 py-2 px-10 text-xl font-normal border-none"
         >
           Manage Ingredients
 
