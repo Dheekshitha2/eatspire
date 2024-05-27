@@ -36,7 +36,7 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
-            className="input input-bordered w-3/4 mb-6 text-center"
+            className="input input-bordered w-3/4 mb-6 text-center bg-gray-200"
             required
           />
           <input
@@ -44,7 +44,7 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            className="input input-bordered w-3/4 mb-10 text-center"
+            className="input input-bordered w-3/4 mb-10 text-center bg-gray-200"
             required
           />
           <button type="submit" className="btn btn-primary rounded-2xl bg-orange-400 hover:bg-orange-600 py-3 px-12 text-xl font-medium mt-2">
