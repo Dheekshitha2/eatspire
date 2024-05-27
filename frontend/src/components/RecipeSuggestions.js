@@ -30,7 +30,7 @@ const RecipeSuggestions = () => {
         </nav>
       </header>
 
-      <main className="flex-grow flex flex-col items-center mt-16 text-black">
+      <main className="flex-grow flex flex-col items-center mt-10 text-black">
         <h2 className="text-5xl font-bold mb-8">Recipe</h2>
         <button 
           onClick={fetchSuggestions}

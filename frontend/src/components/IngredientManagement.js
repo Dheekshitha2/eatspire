@@ -63,7 +63,7 @@ const IngredientManagement = () => {
         </nav>
       </header>
 
-      <main className="flex-grow flex flex-col items-center mt-16 text-black">
+      <main className="flex-grow flex flex-col items-center mt-10 text-black">
         <h2 className="text-5xl font-bold mb-8">Ingredients</h2>
         <ul className="list-disc pl-5 mt-8 w-full max-w-md">
           {ingredients.length > 0 ? (

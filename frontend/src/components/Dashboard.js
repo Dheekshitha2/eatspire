@@ -49,7 +49,7 @@ const Dashboard = () => {
       </header>
 
       <main className="flex-grow flex flex-col items-center mt-10 text-black">
-        <h2 className="text-5xl font-bold mb-6">Dashboard</h2>
+        <h2 className="text-5xl font-bold mb-8">Dashboard</h2>
 
         <button
           onClick={() => setIsModalOpen(true)}
