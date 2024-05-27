@@ -43,6 +43,7 @@ const Dashboard = () => {
   };
 
   return (
+    // Nav bar
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       <header className="w-full bg-white shadow-md">
         <nav className="container mx-auto p-4 flex justify-between items-center">
@@ -51,7 +52,6 @@ const Dashboard = () => {
           <Link to="/login" className="btn btn-ghost rounded-lg hover:bg-gray-300 py-2 px-4 text-lg">Login</Link>
         </nav>
       </header>
-
       <main className="flex-grow flex flex-col items-center mt-16">
         <h2 className="text-5xl font-bold mb-8">Dashboard</h2>
         
