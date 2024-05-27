@@ -20,9 +20,14 @@ input {
 
 button {
   border: none; /* Remove borders from buttons globally */
+  outline: none; /* Remove outline from buttons globally */
   display: flex; /* Use flexbox to center the text */
   justify-content: center; /* Center the text horizontally */
   align-items: center; /* Center the text vertically */
+}
+
+button:focus {
+  outline: none; /* Remove focus outline from buttons globally */
 }
 
 @tailwind base;
