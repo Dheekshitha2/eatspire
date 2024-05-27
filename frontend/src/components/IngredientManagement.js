@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import EditIngredientForm from './EditIngredientForm';
 
 const IngredientManagement = () => {
   const [ingredients, setIngredients] = useState([]);
-  const [name, setName] = useState('');
-  const [expiryDate, setExpiryDate] = useState('');
+  const [selectedIngredient, setSelectedIngredient] = useState(null);
 
   useEffect(() => {
     const fetchIngredients = async () => {
@@ -27,28 +27,24 @@ const IngredientManagement = () => {
     try {
       const response = await axios.post(
         '/api/ingredients',
-        { name, expiry_date: expiryDate },
+        { name: selectedIngredient.name, expiry_date: selectedIngredient.expiry_date },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         }
       );
       setIngredients([...ingredients, response.data]);
-      setName('');
-      setExpiryDate('');
+      setSelectedIngredient(null);
     } catch (error) {
       console.error('Error adding ingredient:', error);
     }
   };
 
-  const handleDeleteIngredient = async (id) => {
-    try {
-      await axios.delete(`/api/ingredients/${id}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      });
-      setIngredients(ingredients.filter((ingredient) => ingredient.id !== id));
-    } catch (error) {
-      console.error('Error deleting ingredient:', error);
-    }
+  const handleUpdateIngredient = (updatedIngredient) => {
+    setIngredients(ingredients.map(ingredient => ingredient.id === updatedIngredient.id ? updatedIngredient : ingredient));
+  };
+
+  const handleDeleteIngredient = (id) => {
+    setIngredients(ingredients.filter((ingredient) => ingredient.id !== id));
   };
 
   return (
@@ -68,37 +64,17 @@ const IngredientManagement = () => {
       </header>
 
       <main className="flex-grow flex flex-col items-center mt-16 text-black">
-        <h2 className="text-5xl font-bold mb-8">Ingredient Management</h2>
-        <form onSubmit={handleAddIngredient} className="w-full max-w-md text-center">
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Ingredient Name"
-            className="input input-bordered w-3/4 mb-6 text-center"
-            required
-          />
-          <input
-            type="date"
-            value={expiryDate}
-            onChange={(e) => setExpiryDate(e.target.value)}
-            className="input input-bordered w-3/4 mb-10 text-center"
-            required
-          />
-          <button type="submit" className="btn btn-primary rounded-2xl bg-orange-400 hover:bg-orange-600 py-3 px-12 text-xl font-medium mt-2">
-            Add Ingredient
-          </button>
-        </form>
-        <ul className="list-disc pl-5 mt-8">
+        <h2 className="text-5xl font-bold mb-8">Ingredients</h2>
+        <ul className="list-disc pl-5 mt-8 w-full max-w-md">
           {ingredients.length > 0 ? (
             ingredients.map((ingredient) => (
               <li key={ingredient.id} className="mb-2 flex justify-between items-center">
                 <span>{ingredient.name} - {ingredient.expiry_date}</span>
                 <button
-                  onClick={() => handleDeleteIngredient(ingredient.id)}
-                  className="btn btn-secondary rounded-2xl bg-red-400 hover:bg-red-600 py-1 px-4 text-sm font-medium"
+                  onClick={() => setSelectedIngredient(ingredient)}
+                  className="btn btn-secondary rounded-2xl bg-gray-300 hover:bg-gray-400 py-1 px-4 text-sm font-medium"
                 >
-                  Delete
+                  &#x2022;&#x2022;&#x2022;
                 </button>
               </li>
             ))
@@ -106,6 +82,14 @@ const IngredientManagement = () => {
             <li>No ingredients found.</li>
           )}
         </ul>
+        {selectedIngredient && (
+          <EditIngredientForm
+            ingredient={selectedIngredient}
+            onClose={() => setSelectedIngredient(null)}
+            onUpdate={handleUpdateIngredient}
+            onDelete={handleDeleteIngredient}
+          />
+        )}
       </main>
     </div>
   );

@@ -27,36 +27,44 @@ const Dashboard = () => {
   };
 
   return (
+
     <div className="min-h-screen bg-gray-100 flex flex-col items-center text-black">
+
       <header className="w-full bg-white shadow-md">
         <nav className="container mx-auto p-4 flex justify-between items-center text-black">
+
           <Link to="/recipesuggestions" className="btn btn-ghost rounded-lg hover:bg-gray-300 py-2 px-4 text-lg">
             Recipe
           </Link>
+
           <Link to="/dashboard" className="text-3xl font-bold text-orange-500">
             eatspire
           </Link>
+
           <Link to="/login" className="btn btn-ghost rounded-lg hover:bg-gray-300 py-2 px-4 text-lg">
             Login
           </Link>
+
         </nav>
       </header>
 
-      <main className="flex-grow flex flex-col items-center mt-16 text-black">
-        <h2 className="text-5xl font-bold mb-8">Dashboard</h2>
+      <main className="flex-grow flex flex-col items-center mt-10 text-black">
+        <h2 className="text-5xl font-bold mb-6">Dashboard</h2>
 
         <button
           onClick={() => setIsModalOpen(true)}
-          className="btn btn-primary rounded-2xl bg-orange-400 hover:bg-orange-600 mb-4 py-2 px-16 text-xl font-medium mt-2 outline-none focus:outline-none"
+          className="btn btn-primary rounded-2xl bg-gray-300 hover:bg-orange-400 mb-4 py-2 px-16 text-xl font-medium mt-1"
         >
           Add Ingredient
+
         </button>
 
         <Link
-          to="/ingredient"
-          className="btn btn-primary rounded-2xl bg-orange-400 hover:bg-orange-600 mb-8 py-2 px-10 text-xl font-medium outline-none focus:outline-none"
+          to="/ingredients"
+          className="btn btn-primary rounded-2xl bg-gray-300 hover:bg-orange-400 mb-6 py-2 px-10 text-xl font-medium border-none"
         >
           Manage Ingredients
+
         </Link>
 
         {isModalOpen && <AddIngredientForm onClose={() => setIsModalOpen(false)} onAdd={handleAddIngredient} />}
