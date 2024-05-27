@@ -33,7 +33,7 @@ const Dashboard = () => {
       <header className="w-full bg-white shadow-md">
         <nav className="container mx-auto p-4 flex justify-between items-center text-black">
 
-          <Link to="/recipesuggestions" className="btn btn-ghost rounded-lg hover:bg-gray-300 py-2 px-4 text-lg">
+          <Link to="/recipes" className="btn btn-ghost rounded-lg hover:bg-gray-300 py-2 px-4 text-lg">
             Recipe
           </Link>
 
