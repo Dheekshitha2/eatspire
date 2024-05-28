@@ -11,18 +11,39 @@ module.exports = (supabase) => {
     // User Registration
     router.post('/register', async (req, res) => {
         const { name, email, password } = req.body;
-        const { data, error } = await supabase.auth.signUp({
+
+        // Check if user already exists
+        const { data: existingUsers, error: existingError } = await supabase
+            .from('users')
+            .select('email')
+            .eq('email', email);
+
+        if (existingError) {
+            return res.status(500).json({ error: existingError.message });
+        }
+
+        if (existingUsers.length > 0) {
+            return res.status(409).json({ error: "Email already in use" });
+        }
+
+        // Proceed with registration if email is not taken
+        const { user, error } = await supabase.auth.signUp({
             email,
             password,
         });
 
         if (error) return res.status(400).json({ error: error.message });
 
-        // Save additional user info
-        await supabase.from('users').insert([{ id: data.user.id, name, email }]);
+        // Insert into users table additional info
+        const { error: insertError } = await supabase.from('users').insert([{ id: user.id, name, email }]);
 
-        res.status(201).json({ message: 'User registered successfully' });
+        if (insertError) {
+            return res.status(500).json({ error: insertError.message });
+        }
+
+        return res.status(201).json({ message: 'User registered successfully' });
     });
+
 
     // User Login
     router.post('/login', async (req, res) => {
