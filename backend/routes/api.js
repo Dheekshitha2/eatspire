@@ -1,22 +1,49 @@
 const express = require('express');
 const router = express.Router();
+const { OpenAI } = require('openai');
+
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+});
+
 
 module.exports = (supabase) => {
     // User Registration
     router.post('/register', async (req, res) => {
         const { name, email, password } = req.body;
-        const { data, error } = await supabase.auth.signUp({
+
+        // Check if user already exists
+        const { data: existingUsers, error: existingError } = await supabase
+            .from('users')
+            .select('email')
+            .eq('email', email);
+
+        if (existingError) {
+            return res.status(500).json({ error: existingError.message });
+        }
+
+        if (existingUsers.length > 0) {
+            return res.status(409).json({ error: "Email already in use" });
+        }
+
+        // Proceed with registration if email is not taken
+        const { user, error } = await supabase.auth.signUp({
             email,
             password,
         });
 
         if (error) return res.status(400).json({ error: error.message });
 
-        // Save additional user info
-        await supabase.from('users').insert([{ id: data.user.id, name, email }]);
+        // Insert into users table additional info
+        const { error: insertError } = await supabase.from('users').insert([{ id: user.id, name, email }]);
 
-        res.status(201).json({ message: 'User registered successfully' });
+        if (insertError) {
+            return res.status(500).json({ error: insertError.message });
+        }
+
+        return res.status(201).json({ message: 'User registered successfully' });
     });
+
 
     // User Login
     router.post('/login', async (req, res) => {
@@ -70,8 +97,6 @@ module.exports = (supabase) => {
     });
 
 
-
-
     // Delete Ingredient
     router.delete('/ingredients/:id', async (req, res) => {
         const { id } = req.params;
@@ -82,16 +107,41 @@ module.exports = (supabase) => {
         res.status(204).end();
     });
 
-    // Recipe Suggestions
+    async function fetchRecipes(ingredients) {
+        const prompt = `Given the ingredients ${ingredients.join(', ')}, what are two delicious recipes I can make?`;
+        try {
+            const completion = await openai.chat.completions.create({
+                model: "gpt-3.5-turbo",
+                messages: [{ role: 'user', content: prompt }]
+            });
+
+            if (completion.choices && completion.choices.length > 0) {
+                const recipes = completion.choices[0].message.content.trim().split("\n").filter(line => line.trim() !== "");
+                return recipes;
+            } else {
+                throw new Error("Failed to generate recipes");
+            }
+        } catch (error) {
+            console.error('Error fetching recipe suggestions:', error);
+            throw error;
+        }
+    }
+
+
     router.post('/suggest-recipes', async (req, res) => {
-        const { ingredients } = req.body;
-        // Mocked response for simplicity. Replace with your actual logic
-        const recipes = [
-            'Recipe 1 based on ingredients',
-            'Recipe 2 based on ingredients',
-        ];
-        res.json({ recipes });
+        const ingredients = req.body.ingredients;
+        console.log("Handling POST request to /suggest-recipes with ingredients:", ingredients);
+
+        try {
+            const recipes = await fetchRecipes(ingredients);
+            console.log("Sending recipes back to client:", recipes);
+            res.json({ recipes });
+        } catch (error) {
+            console.error('Error in recipe generation:', error);
+            res.status(500).json({ error: 'Error fetching recipe suggestions: ' + error.message });
+        }
     });
+
 
     return router;
 };
