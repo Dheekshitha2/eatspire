@@ -4,6 +4,7 @@ import axios from 'axios';
 const EditIngredientForm = ({ ingredient, onClose, onUpdate, onDelete }) => {
   const [name, setName] = useState(ingredient.name);
   const [expiryDate, setExpiryDate] = useState(ingredient.expiry_date);
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleUpdateIngredient = async (e) => {
     e.preventDefault();
@@ -63,13 +64,13 @@ const EditIngredientForm = ({ ingredient, onClose, onUpdate, onDelete }) => {
             </button>
           </div>
           <div className="flex justify-between space-x-4">
-            <button type="submit" className="btn btn-primary rounded-lg bg-orange-400 hover:bg-orange-600 py-2 text-lg font-bold w-1/2">
+            <button type="submit" className="btn btn-primary rounded-lg bg-orange-400 hover:bg-orange-600 py-2 text-lg font-bold p-20">
               Save
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="btn btn-secondary rounded-lg bg-gray-300 hover:bg-gray-400 py-2 text-lg font-bold w-1/2"
+              className="btn btn-secondary rounded-lg bg-gray-300 hover:bg-gray-400 py-2 text-lg font-bold p-20"
             >
               Cancel
             </button>
