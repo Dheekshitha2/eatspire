@@ -6,10 +6,12 @@ const RecipeSuggestions = () => {
   const [suggestedRecipes, setSuggestedRecipes] = useState([]);
 
   const fetchSuggestions = async () => {
+    const ingredients = ['apple', 'banana', 'chocolate', 'milk']; // Adjust this to pull from your state or user input.
+
     try {
       const response = await axios.post(
         '/api/suggest-recipes',
-        {},
+        { ingredients }, // Send ingredients as part of the request body.
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         }
@@ -19,6 +21,7 @@ const RecipeSuggestions = () => {
       console.error('Error fetching recipe suggestions:', error);
     }
   };
+
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center text-black">
@@ -32,7 +35,7 @@ const RecipeSuggestions = () => {
 
       <main className="flex-grow flex flex-col items-center mt-10 text-black">
         <h2 className="text-5xl font-bold mb-8">Recipe</h2>
-        <button 
+        <button
           onClick={fetchSuggestions}
           className="btn btn-primary rounded-2xl bg-orange-400 hover:bg-orange-600 py-2 px-12 text-xl font-medium mt-2 outline-none focus:outline-none"
         >

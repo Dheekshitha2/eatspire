@@ -1,5 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const { OpenAI } = require('openai');
+
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+});
+
 
 module.exports = (supabase) => {
     // User Registration
@@ -70,8 +76,6 @@ module.exports = (supabase) => {
     });
 
 
-
-
     // Delete Ingredient
     router.delete('/ingredients/:id', async (req, res) => {
         const { id } = req.params;
@@ -82,16 +86,41 @@ module.exports = (supabase) => {
         res.status(204).end();
     });
 
-    // Recipe Suggestions
+    async function fetchRecipes(ingredients) {
+        const prompt = `Given the ingredients ${ingredients.join(', ')}, what are two delicious recipes I can make?`;
+        try {
+            const completion = await openai.chat.completions.create({
+                model: "gpt-3.5-turbo",
+                messages: [{ role: 'user', content: prompt }]
+            });
+
+            if (completion.choices && completion.choices.length > 0) {
+                const recipes = completion.choices[0].message.content.trim().split("\n").filter(line => line.trim() !== "");
+                return recipes;
+            } else {
+                throw new Error("Failed to generate recipes");
+            }
+        } catch (error) {
+            console.error('Error fetching recipe suggestions:', error);
+            throw error;
+        }
+    }
+
+
     router.post('/suggest-recipes', async (req, res) => {
-        const { ingredients } = req.body;
-        // Mocked response for simplicity. Replace with your actual logic
-        const recipes = [
-            'Recipe 1 based on ingredients',
-            'Recipe 2 based on ingredients',
-        ];
-        res.json({ recipes });
+        const ingredients = req.body.ingredients;
+        console.log("Handling POST request to /suggest-recipes with ingredients:", ingredients);
+
+        try {
+            const recipes = await fetchRecipes(ingredients);
+            console.log("Sending recipes back to client:", recipes);
+            res.json({ recipes });
+        } catch (error) {
+            console.error('Error in recipe generation:', error);
+            res.status(500).json({ error: 'Error fetching recipe suggestions: ' + error.message });
+        }
     });
+
 
     return router;
 };
