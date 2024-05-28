@@ -24,10 +24,10 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path="/ingredients" element={<PrivateRoute><IngredientManagement /></PrivateRoute>} />
-          <Route path="/recipes" element={<PrivateRoute><RecipeSuggestions /></PrivateRoute>} />
-          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/ingredients" element={<IngredientManagement />} />
+          <Route path="/recipes" element={<RecipeSuggestions />} />
+          <Route path="/" element={<Navigate to="/dashboard" />} />
         </Routes>
       </div>
     </Router>
