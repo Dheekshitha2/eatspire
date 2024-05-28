@@ -9,24 +9,11 @@ const openai = new OpenAI({
 
 module.exports = (supabase) => {
     // User Registration
+    // User Registration
     router.post('/register', async (req, res) => {
         const { name, email, password } = req.body;
 
-        // Check if user already exists
-        const { data: existingUsers, error: existingError } = await supabase
-            .from('users')
-            .select('email')
-            .eq('email', email);
-
-        if (existingError) {
-            return res.status(500).json({ error: existingError.message });
-        }
-
-        if (existingUsers.length > 0) {
-            return res.status(409).json({ error: "Email already in use" });
-        }
-
-        // Proceed with registration if email is not taken
+        // Proceed with registration directly
         const { user, error } = await supabase.auth.signUp({
             email,
             password,
