@@ -37,21 +37,24 @@ const EditIngredientForm = ({ ingredient, onClose, onUpdate, onDelete }) => {
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
       <div className="bg-white p-12 rounded-2xl shadow-lg">
-        <h3 className="text-2xl font-bold mb-8 text-black">Edit Ingredient</h3>
+        <h3 className="text-3xl text-center font-bold mb-8 text-black">Edit Ingredient</h3>
         <form onSubmit={handleUpdateIngredient} className="w-full max-w-md text-center">
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Ingredient Name"
-            className="input input-bordered w-full mb-6 text-center"
+            placeholder="Ingredient"
+            className="input input-bordered w-full mb-6 text-center bg-gray-200"
             required
           />
           <input
+            id="expiry-date"
             type="date"
             value={expiryDate}
             onChange={(e) => setExpiryDate(e.target.value)}
-            className="input input-bordered w-full mb-6 text-center"
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            className="input input-bordered w-full mb-10 text-center bg-gray-200"
             required
           />
           <div className="flex justify-between space-x-4 mb-4">
@@ -60,13 +63,13 @@ const EditIngredientForm = ({ ingredient, onClose, onUpdate, onDelete }) => {
             </button>
           </div>
           <div className="flex justify-between space-x-4">
-            <button type="submit" className="btn btn-primary rounded-lg bg-orange-400 hover:bg-orange-600 py-2 text-lg font-bold w-full">
+            <button type="submit" className="btn btn-primary rounded-lg bg-orange-400 hover:bg-orange-600 py-2 text-lg font-bold w-1/2">
               Save
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="btn btn-secondary rounded-lg bg-gray-300 hover:bg-gray-400 py-2 text-lg font-bold w-full"
+              className="btn btn-secondary rounded-lg bg-gray-300 hover:bg-gray-400 py-2 text-lg font-bold w-1/2"
             >
               Cancel
             </button>
