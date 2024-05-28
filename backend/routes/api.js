@@ -41,7 +41,6 @@ module.exports = (supabase) => {
     });
 
     router.post('/ingredients', async (req, res) => {
-        console.log('Add Ingredient Request:', req.body); // Log the incoming request
         const { name, expiry_date } = req.body;
 
         if (!name || !expiry_date) {
@@ -50,18 +49,27 @@ module.exports = (supabase) => {
         }
 
         try {
-            const { data, error } = await supabase.from('ingredients').insert([{ name, expiry_date }]);
+            const { data, error } = await supabase.from('ingredients').insert([{ name, expiry_date }]).select();
+            console.log('Data received:', data); // Log the full data object
             if (error) {
                 console.error('Error adding ingredient:', error);
                 return res.status(400).json({ error: error.message });
             }
-            console.log('Ingredient added:', data); // Log the response
+
+            if (!data || data.length === 0) {
+                console.error('No ingredient data was returned after insert.');
+                return res.status(500).json({ error: 'No ingredient data returned after insert' });
+            }
+
+            console.log('Ingredient added:', data[0]);
             res.status(201).json(data[0]);
         } catch (error) {
             console.error('Server error:', error);
             res.status(500).json({ error: 'Internal Server Error: ' + error.message });
         }
     });
+
+
 
 
     // Delete Ingredient
