@@ -26,8 +26,107 @@ button {
   align-items: center; /* Center the text vertically */
 }
 
-button:focus {
-  outline: none; /* Remove focus outline from buttons globally */
+/* Styling for the sorting arrows */
+.sort-icon {
+  position: relative;
+  display: inline-block;
+  width: 10px;
+  height: 20px; /* Increased height to accommodate the gap */
+  visibility: hidden;
+}
+
+.sort-icon::before,
+.sort-icon::after {
+  content: '';
+  position: absolute;
+  right: 0%;
+  transform: translateX(-50%);
+  border: solid transparent;
+  width: 0;
+  height: 0;
+}
+
+.sort-icon::before {
+  bottom: 12px; 
+  border-width: 5px;
+  border-bottom-color: black;
+}
+
+.sort-icon::after {
+  top: 12px; 
+  border-width: 5px;
+  border-top-color: black;
+}
+
+/* Hide the single arrows by default */
+.sort-up,
+.sort-down {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border: solid transparent;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+th.sorted .sort-up,
+th.sorted-desc .sort-down {
+  visibility: visible;
+}
+
+th.sorted .sort-up {
+  bottom: 16px; 
+  border-width: 5px;
+  border-bottom-color: black;
+}
+
+th.sorted-desc .sort-down {
+  top: 16px; 
+  border-width: 5px;
+  border-top-color: black;
+}
+
+/* Make both arrows visible on hover */
+th:hover .sort-icon,
+th:focus .sort-icon,
+th:active .sort-icon {
+  visibility: visible;
+}
+
+th:hover .sort-up,
+th:hover .sort-down,
+th:focus .sort-up,
+th:focus .sort-down,
+th:active .sort-up,
+th:active .sort-down {
+  visibility: hidden;
+}
+
+/* Ensure fixed column widths */
+th, td {
+  width: 50%;
+  text-align: left;
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* Prevent scrolling when modal is open */
+.modal-open {
+  overflow: hidden;
+}
+
+/* Style for the modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 @tailwind base;
